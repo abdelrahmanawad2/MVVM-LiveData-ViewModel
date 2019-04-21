@@ -1,0 +1,79 @@
+project.ext {
+    appcompat = "26.1.0"
+    arch = "1.0.0"
+    retrofit = "2.0.2"
+    constraintLayout = "1.0.2"
+}
+
+def NEWS_API_KEY = '"' + NewsApiKey + '"'
+
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-android'
+
+android {
+    compileSdkVersion 28
+    defaultConfig {
+        applicationId "com.example.testappandroidjetback"
+        minSdkVersion 15
+        targetSdkVersion 28
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        buildConfigField "String", "NewsApiKey", NEWS_API_KEY
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    dataBinding {
+        enabled = true
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation 'androidx.appcompat:appcompat:1.0.0-beta01'
+    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+    implementation 'androidx.lifecycle:lifecycle-extensions:2.0.0-beta01'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'androidx.test:runner:1.1.0-alpha4'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0-alpha4'
+
+    // LiveData + ViewModel
+
+    implementation "android.arch.lifecycle:extensions:1.1.1"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation 'android.arch.navigation:navigation-fragment:1.0.0'
+
+    // views
+    implementation "com.android.support:cardview-v7:$project.appcompat"
+    implementation "com.android.support:recyclerview-v7:$project.appcompat"
+    implementation "com.android.support.constraint:constraint-layout:$project.constraintLayout"
+
+    // lifecycles
+    implementation "android.arch.lifecycle:runtime:$project.arch"
+    implementation "android.arch.lifecycle:extensions:$project.arch"
+    annotationProcessor "android.arch.lifecycle:compiler:$project.arch"
+
+//networking
+    implementation "com.squareup.retrofit2:retrofit:$project.retrofit"
+    implementation "com.squareup.retrofit2:converter-gson:$project.retrofit"
+
+//support
+    implementation "com.android.support:appcompat-v7:$project.appcompat"
+    implementation "com.android.support:support-v4:$project.appcompat"
+    implementation 'com.android.support:design:25.3.1', {
+        exclude module: 'support-annotations'
+    }
+
+    // Navigation
+
+    /*implementation 'androidx.navigation:navigation-fragment:1.1.1'
+    implementation 'androidx.navigation:navigation-ui:1.1.1'*/
+}
+repositories {
+    mavenCentral()
+}
