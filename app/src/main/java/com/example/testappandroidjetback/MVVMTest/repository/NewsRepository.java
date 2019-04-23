@@ -75,6 +75,7 @@ public class NewsRepository {
             @Override
             public void onResponse(Call<News> call, Response<News> response) {
                 mutableLiveData.setValue(response.body());
+                Log.i("Response", response.body().toString());
             }
 
             @Override

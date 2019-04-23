@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+        <import type="android.view.View" />
         <variable
             name="isLoading"
-            type="boolean"
-            android:value="true"/>
+            type="boolean"/>
     </data>
     
     <LinearLayout
@@ -21,7 +22,8 @@
             android:gravity="center_vertical|center_horizontal"
             android:text="@string/loading_news"
             android:textAlignment="center"
-            app:visibleGone="@{isLoading}"/>
+            android:visibility="@{isLoading?View.VISIBLE:View.GONE}"
+            tools:visibility="gone"/>
 
 
         <LinearLayout
@@ -29,7 +31,7 @@
             android:layout_height="match_parent"
             android:background="@color/cardview_light_background"
             android:orientation="vertical"
-            app:visibleGone="@{!isLoading}">
+            android:visibility="@{!isLoading?View.VISIBLE:View.GONE}">
 
             <TextView
                 android:layout_width="match_parent"

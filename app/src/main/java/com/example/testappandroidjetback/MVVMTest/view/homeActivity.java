@@ -19,7 +19,8 @@ public class homeActivity extends AppCompatActivity {
 
         if(savedInstanceState == null){
             ArticleListFragment articleListFragment = new ArticleListFragment();
-            getSupportFragmentManager().beginTransaction().add(R.id.fragment_container, articleListFragment, articleListFragment.TAG);
+            getSupportFragmentManager().beginTransaction()
+                    .add(R.id.fragment_container, articleListFragment, articleListFragment.TAG).commit();
         }
 
     }

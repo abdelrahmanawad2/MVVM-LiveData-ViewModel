@@ -16,20 +16,22 @@ import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 public class ArticleListFragment extends Fragment {
 
     public static final String TAG = "ARTICLES_FRAGMENT_TAG";
     private ArticlesFragmentBinding binding;
+    private RecyclerView.LayoutManager layoutManager;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
                              @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        binding = DataBindingUtil.inflate(inflater,R.layout.articles_fragment ,container, false);
+        binding = DataBindingUtil.inflate(inflater, R.layout.articles_fragment, container, false);
 
-        binding.projectList.setAdapter(new NewsAdapter());
         binding.setIsLoading(true);
 
         return binding.getRoot();
@@ -42,7 +44,9 @@ public class ArticleListFragment extends Fragment {
         final NewsViewModel viewModel = ViewModelProviders.of(this)
                 .get(NewsViewModel.class);
 
-        binding.setIsLoading(true);
+        layoutManager =new LinearLayoutManager(getContext());
+        binding.projectList.setHasFixedSize(false);
+        binding.projectList.setLayoutManager(layoutManager);
 
         observeViewModel(viewModel);
 
@@ -53,7 +57,9 @@ public class ArticleListFragment extends Fragment {
         viewModel.getObservableObject().observe(this, new Observer<News>() {
             @Override
             public void onChanged(News news) {
+                binding.projectList.setAdapter(new NewsAdapter(news.getArticles()));
                 binding.setIsLoading(false);
+
             }
         });
 
